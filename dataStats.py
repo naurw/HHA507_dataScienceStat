@@ -95,7 +95,8 @@ diabetes['num_lab_procedures'].hist(bins=20)
 
 
 ############### HOMOGENEITY ###############
-# Barlett's test is used to test if the groups, which can be referred to as k, have equal variances. Barlett's test can test for equality between 2 or more groups.
+# Barlett's test is used to test if the groups, which can be referred to as k, have equal variances.
+# Barlett's test can test for equality between 2 or more groups.
 import scipy.stats as stats
 
 stats.bartlett(timeInHospital, labProcedures) ### More ram efficient than the one below ####
@@ -233,9 +234,10 @@ from scipy.stats import ttest_rel
 ########### and the number of days in the hospital (DV) ? #######################
 #################################################################################
 #################################################################################
+female = diabetes[diabetes['gender']=='Female']
+male = diabetes[diabetes['gender']=='Male']
 
-
-ttest_ind(female['time_in_hospital'], male['time_in_hospital'])
+ttestSexDays = ttest_ind(female['time_in_hospital'], male['time_in_hospital'])
 
 #################################################################################
 ################################## Question 5 ###################################
@@ -244,20 +246,19 @@ ttest_ind(female['time_in_hospital'], male['time_in_hospital'])
 ######### (IV) and the number of days in the hospital (DV) ? ####################
 #################################################################################
 #################################################################################
-
 caucasian = diabetes[diabetes['race']== 'Caucasian']
 africanamerican = diabetes[diabetes['race']== 'AfricanAmerican']
 
-ttest_ind(caucasian['time_in_hospital'], africanamerican['time_in_hospital'])
+ttestRaceDays = ttest_ind(caucasian['time_in_hospital'], africanamerican['time_in_hospital'])
 
 #################################################################################
 ################################## Question 6 ###################################
 #################################################################################
 ## T TEST: is there a difference between race (Asian and African American) ######
-######### (IV) and the number of procedures (DV) ? ##############################
+######### (IV) and the number of lab procedures (DV) ? ##########################
 #################################################################################
 #################################################################################
-
+africanamerican = diabetes[diabetes['race']== 'AfricanAmerican']
 asian = diabetes[diabetes['race']== 'Asian']
 
-ttest_ind(asian['totalCountProcedures'], africanamerican['totalCountProcedures'])
+ttestRaceLab = ttest_ind(asian['num_lab_procedures'], africanamerican['num_lab_procedures'])
