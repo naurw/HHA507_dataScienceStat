@@ -27,7 +27,8 @@ diabetes.info()
 # number_diagnoses 
 
 import numpy as np
-diabetes.replace('?', np.NaN)
+diabetes.replace('?', np.NaN, inplace=True)
+diabetes['race'].value_counts()
 
 ##Create a new columnn of interest 
 
