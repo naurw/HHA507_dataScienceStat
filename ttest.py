@@ -33,6 +33,7 @@ ttest1 = ttest_ind(male['time_in_hospital'], female['time_in_hospital'])
 print('The t-statistic and the p-value are:', ttest1)
 ## There is a difference because the p-value is signficantly lower than the our alpha of 0.05 or our 95% CI 
 ## pvalue=1.4217299655114968e-21 < 0.05 
+## There is a statistical significance and reject the null H0  
 
 # =============================================================================
 # Question 2: 
@@ -43,10 +44,25 @@ race.value_counts()
 caucasian = diabetes[diabetes['race']=='Caucasian']
 africanAmerican = diabetes[diabetes['race']=='AfricanAmerican']
 
+#########################################
+### Exploring dataframes for practice ###
+#########################################
+cTime = diabetes[(diabetes['race']=='Caucasian') & (diabetes['time_in_hospital'])]
+    cTimeDes = cTime.describe().round(3)
+aaTime = diabetes[(diabetes['race']=='AfricanAmerican') & (diabetes['time_in_hospital'])]
+    aaTimeDes = aaTime.describe().round(3)
+    
+cAAMerged = cTime.merge(aaTime, how='left', left_on='encounter_id', right_on='encounter_id')
+cAAConcat = pd.concat([cTime, aaTime])
+
+cAACombined = diabetes[(diabetes['race']=='AfricanAmerican') | (diabetes['race']=='Caucasian') & (diabetes['time_in_hospital'])]
+    cAACombined.describe()
+
 ttest2 = ttest_ind(caucasian['time_in_hospital'], africanAmerican['time_in_hospital'])
 print('The t-statistic and the p-value are:', ttest2)
 ## There is a difference because the p-value is signficantly lower than the our alpha of 0.05 or our 95% CI 
 ## pvalue=4.178330085585203e-07 < 0.05
+## There is a statistical significance and reject the null H0  
 
 # =============================================================================
 # Question 3: 
@@ -59,3 +75,4 @@ ttest3 = ttest_ind(asian['num_lab_procedures'], africanAmerican['num_lab_procedu
 print('The t-statistic and the p-value are:', ttest3)
 ## There is a difference because the p-value is signficantly lower than the our alpha of 0.05 or our 95% CI 
 ## pvalue=6.948907528800307e-05 < 0.05 
+## There is a statistical significance and reject the null H0  
